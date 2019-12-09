@@ -5,7 +5,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.icu.text.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,22 +102,18 @@ abstract class ThemePreviewPage extends PreviewPage {
         private String mTitle;
         private OnClickListener mEditClickListener;
         private final OnLayoutChangeListener[] mListeners;
-        private final int mCornerRadius;
         private final ColorStateList mTintList;
 
         public ThemeCoverPage(Context context, String title, int accentColor, List<Drawable> icons,
-                Typeface headlineFont, int cornerRadius,
-                Drawable shapeDrawable,
-                List<Drawable> shapeAppIcons,
-                OnClickListener editClickListener,
-                int[] colorButtonIds, int[] colorTileIds, int[][] colorTileIconIds,
-                int[] shapeIconIds, OnLayoutChangeListener... wallpaperListeners) {
+                Typeface headlineFont, Drawable shapeDrawable, List<Drawable> shapeAppIcons,
+                OnClickListener editClickListener, int[] colorButtonIds, int[] colorTileIds,
+                int[][] colorTileIconIds, int[] shapeIconIds,
+                OnLayoutChangeListener... wallpaperListeners) {
             super(context, 0, 0, R.layout.preview_card_cover_content, accentColor);
             mRes = context.getResources();
             mTitle = title;
             mHeadlineFont = headlineFont;
             mIcons = icons;
-            mCornerRadius = cornerRadius;
             mShapeDrawable = shapeDrawable;
             mShapeAppIcons = shapeAppIcons;
             mEditClickListener = editClickListener;
@@ -223,18 +218,6 @@ abstract class ThemePreviewPage extends PreviewPage {
             editLabel.setVisibility(mEditClickListener != null
                     ? View.VISIBLE : View.INVISIBLE);
 
-            View qsb = card.findViewById(R.id.theme_qsb);
-            if (qsb != null && qsb.getVisibility() == View.VISIBLE) {
-                if (qsb.getBackground() instanceof GradientDrawable) {
-                    GradientDrawable bg = (GradientDrawable) qsb.getBackground();
-                    float cornerRadius = useRoundedQSB(mCornerRadius)
-                            ? (float)qsb.getLayoutParams().height / 2 : mCornerRadius;
-                    bg.setCornerRadii(new float[]{
-                            cornerRadius, cornerRadius, cornerRadius, cornerRadius,
-                            cornerRadius, cornerRadius, cornerRadius, cornerRadius});
-                }
-            }
-
             Guideline guideline = card.findViewById(R.id.guideline);
             if (guideline != null) {
                 guideline.setGuidelineEnd(card.getResources().getDimensionPixelOffset(
@@ -248,11 +231,6 @@ abstract class ThemePreviewPage extends PreviewPage {
                 ((TextView) card.findViewById(R.id.theme_preview_clock)).setText(
                         getFormattedTime());
             }
-        }
-
-        private boolean useRoundedQSB(int cornerRadius) {
-            return cornerRadius >=
-                    card.getResources().getDimensionPixelSize(R.dimen.roundCornerThreshold);
         }
 
         private String getFormattedTime() {

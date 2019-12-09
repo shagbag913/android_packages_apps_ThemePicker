@@ -390,10 +390,9 @@ public class ThemeFragment extends ToolbarFragment {
 
             addPage(new ThemeCoverPage(activity, theme.getTitle(),
                     previewInfo.resolveAccentColor(res), previewInfo.icons,
-                    previewInfo.headlineFontFamily, previewInfo.bottomSheeetCornerRadius,
-                    previewInfo.shapeDrawable, previewInfo.shapeAppIcons, editClickListener,
-                    mColorButtonIds, mColorTileIds, mColorTileIconIds, mShapeIconIds,
-                    wallpaperListener, coverCardLayoutListener));
+                    previewInfo.headlineFontFamily, previewInfo.shapeDrawable,
+                    previewInfo.shapeAppIcons, editClickListener, mColorButtonIds, mColorTileIds,
+                    mColorTileIconIds, mShapeIconIds, wallpaperListener, coverCardLayoutListener));
             addPage(new ThemePreviewPage(activity, R.string.preview_name_font, R.drawable.ic_font,
                     R.layout.preview_card_font_content,
                     previewInfo.resolveAccentColor(res)) {
